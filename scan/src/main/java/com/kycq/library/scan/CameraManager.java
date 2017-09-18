@@ -25,7 +25,7 @@ class CameraManager {
 		mCameraConfigManager = new CameraConfigManager();
 	}
 	
-	boolean isOpen() {
+	synchronized boolean isOpen() {
 		return mOpenCamera != null && mOpenCamera.getCamera() != null;
 	}
 	
@@ -65,7 +65,7 @@ class CameraManager {
 		return mIsFlashMode;
 	}
 	
-	void openDriver(SurfaceHolder surfaceHolder) throws IOException {
+	synchronized void openDriver(SurfaceHolder surfaceHolder) throws IOException {
 		if (isOpen()) {
 			return;
 		}
@@ -117,7 +117,7 @@ class CameraManager {
 		theCamera.setPreviewDisplay(surfaceHolder);
 	}
 	
-	void closeDriver() {
+	synchronized void closeDriver() {
 		if (isOpen()) {
 			mOpenCamera.getCamera().release();
 			mOpenCamera = null;
